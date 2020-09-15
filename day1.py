@@ -14,7 +14,7 @@ def part1():
 
 def part2():
     floor = 0
-    for (i, instr) in enumerate(puzzle_input, start=1):
+    for i, instr in enumerate(puzzle_input, start=1):
         if (instr == '('):
             floor += 1
         else:
