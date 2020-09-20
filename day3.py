@@ -1,5 +1,7 @@
-with open("day3_input.txt") as file:
-    puzzle_input = file.read()
+import sys
+
+puzzle_input = sys.stdin.read().rstrip()
+print(puzzle_input)
 
 direction_deltas = {
     ">": (1, 0),
@@ -9,44 +11,42 @@ direction_deltas = {
 }
 
 
-def part1(puzzle_input):
+def update_position(pos, delta):
+    return (pos[0] + delta[0], pos[1] + delta[1])
+
+
+def a(puzzle_input):
     pos = (0, 0)
-    visited = {
-        (pos[0], pos[1]): True
-    }
-    presents = 1
-    for _, direction in enumerate(puzzle_input, start=1):
+    visited = set((pos[0], pos[1]))
+    presents = 0
+    for direction in puzzle_input:
         delta = direction_deltas[direction]
-        pos = (pos[0] + delta[0], pos[1] + delta[1])
+        pos = update_position(pos, delta)
         if pos not in visited:
             presents += 1
-            visited[pos] = True
-        # pass
+            visited.add(pos)
     return presents
 
 
-def part2(puzzle_input):
+def b(puzzle_input):
     santa_pos, robot_pos = (0, 0), (0, 0)
-    visited = {
-        (santa_pos[0], santa_pos[1]): True
-    }
-    presents = 1
-    for i, direction in enumerate(puzzle_input, start=1):
+    visited = set((santa_pos[0], santa_pos[1]))
+    presents = 0
+    for i, direction in enumerate(puzzle_input):
         delta = direction_deltas[direction]
 
         if i % 2 == 0:
-            santa_pos = (santa_pos[0] + delta[0], santa_pos[1] + delta[1])
+            santa_pos = update_position(santa_pos, delta)
             new_pos = santa_pos
         else:
-            robot_pos = (robot_pos[0] + delta[0], robot_pos[1] + delta[1])
+            robot_pos = update_position(robot_pos, delta)
             new_pos = robot_pos
 
         if new_pos not in visited:
             presents += 1
-            visited[new_pos] = True
-        # pass
+            visited.add(new_pos)
     return presents
 
 
-print(part1(puzzle_input))
-print(part2(puzzle_input))
+print(a(puzzle_input))
+print(b(puzzle_input))

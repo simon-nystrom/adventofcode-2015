@@ -1,10 +1,10 @@
+import sys
 from functools import reduce
 
-with open("day1_input.txt") as file:
-    puzzle_input = file.read()
+puzzle_input = sys.stdin.read()
 
 
-def part1():
+def a(puzzle_input):
     return reduce(
         lambda floor, instr: floor + 1 if instr == '(' else floor - 1,
         puzzle_input,
@@ -12,7 +12,7 @@ def part1():
     )
 
 
-def part2():
+def b(puzzle_input):
     floor = 0
     for i, instr in enumerate(puzzle_input, start=1):
         if (instr == '('):
@@ -23,5 +23,5 @@ def part2():
             return i
 
 
-print(part1())
-print(part2())
+print(a(puzzle_input))
+print(b(puzzle_input))
