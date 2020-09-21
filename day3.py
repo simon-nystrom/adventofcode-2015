@@ -1,7 +1,6 @@
 import sys
 
 puzzle_input = sys.stdin.read().rstrip()
-print(puzzle_input)
 
 direction_deltas = {
     ">": (1, 0),

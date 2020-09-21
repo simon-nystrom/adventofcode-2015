@@ -6,7 +6,7 @@ puzzle_input = sys.stdin.read().rstrip().splitlines()
 
 def surface_area(l, w, h):
     slack = min(l * w, w * h, l * h)
-    return 2 * l * w + 2 * w * h + 2 * h * l + slack
+    return 2 * (l * w + w * h + h * l) + slack
 
 
 def a(puzzle_input):
@@ -20,9 +20,9 @@ def a(puzzle_input):
     return reduce(helper, puzzle_input, 0)
 
 
-def shortest_bow(l, w, h):
+def shortest_ribbon(l, w, h):
     bow = l * w * h
-    return min(l * 2 + w * 2, w * 2 + h * 2, l * 2 + h * 2) + bow
+    return min(2 * (l + w), 2 * (w + h), 2 * (l + h)) + bow
 
 
 def b(puzzle_input):
@@ -30,7 +30,7 @@ def b(puzzle_input):
     def helper(total_area, dimensions):
         # Parse the dimensions into their l, w and h respectively and turn them into ints
         [l, w, h] = map(int, dimensions.split('x'))
-        return total_area + shortest_bow(l, w, h)
+        return total_area + shortest_ribbon(l, w, h)
 
     return reduce(helper, puzzle_input, 0)
 
